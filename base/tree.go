@@ -5,14 +5,13 @@ import (
 )
 
 type TreeNode struct {
-	Item string
-	Left *TreeNode
+	Item  string
+	Left  *TreeNode
 	Right *TreeNode
 }
 type bst struct {
 	root *TreeNode
 }
-
 
 /*
         m
@@ -29,7 +28,6 @@ a  b  c  d  e  f
 
 */
 func (tree *bst) buildTree() {
-
 	m := &TreeNode{Item: "m"}
 	tree.root = m
 
@@ -66,7 +64,7 @@ func (tree *bst) buildTree() {
 
 //先序遍历
 
-func first(tree *TreeNode)  {
+func first(tree *TreeNode) {
 	if tree != nil {
 		fmt.Println(tree.Item)
 		first(tree.Left)
@@ -74,7 +72,7 @@ func first(tree *TreeNode)  {
 	}
 }
 
-func mid(tree *TreeNode)  {
+func mid(tree *TreeNode) {
 	if tree != nil {
 		mid(tree.Left)
 		fmt.Println(tree.Item)
@@ -82,7 +80,7 @@ func mid(tree *TreeNode)  {
 	}
 }
 
-func last(tree *TreeNode)  {
+func last(tree *TreeNode) {
 	if tree != nil {
 		last(tree.Left)
 		last(tree.Right)
@@ -99,7 +97,7 @@ func main() {
 	last(tree.root)
 	//a:=firstTraversal(tree.root)
 	//fmt.Println(a)
-	a:=lastTraversal(tree.root)
+	a := lastTraversal(tree.root)
 	fmt.Println(a)
 	//tree.inOrder()
 	//tree.lastOrder()
@@ -107,16 +105,16 @@ func main() {
 }
 
 // 先序遍历栈实现
-func firstTraversal(root *TreeNode)[]string  {
+func firstTraversal(root *TreeNode) []string {
 	result := make([]string, 0)
 	for root == nil {
 		return result
 	}
 	stack := make([]*TreeNode, 0)
-	for root != nil || len(stack) >0 {
+	for root != nil || len(stack) > 0 {
 		if root != nil {
-			result = append(result,root.Item)
-			stack = append(stack,root)
+			result = append(result, root.Item)
+			stack = append(stack, root)
 			root = root.Left
 		} else {
 			val := stack[len(stack)-1]
@@ -128,7 +126,7 @@ func firstTraversal(root *TreeNode)[]string  {
 	return result
 }
 
-func midTraversal(root *TreeNode)[]string  {
+func midTraversal(root *TreeNode) []string {
 	result := make([]string, 0)
 	if root == nil {
 		return result
@@ -137,12 +135,12 @@ func midTraversal(root *TreeNode)[]string  {
 
 	for root != nil || len(stack) > 0 {
 		if root != nil {
-			stack = append(stack,root)
+			stack = append(stack, root)
 			root = root.Left
 		} else {
 			val := stack[len(stack)-1]
 			stack = stack[:len(stack)-1]
-			result = append(result,val.Item)
+			result = append(result, val.Item)
 			root = val.Right
 		}
 	}
@@ -152,7 +150,7 @@ func midTraversal(root *TreeNode)[]string  {
 }
 
 // 后序遍历，要入栈两次，第二次弹出时候，才输出节点输出节点时刻，右节点没有数据或者右节点已经弹出过了
-func lastTraversal(root *TreeNode)[]string  {
+func lastTraversal(root *TreeNode) []string {
 	result := make([]string, 0)
 	if root == nil {
 		return result
@@ -161,14 +159,14 @@ func lastTraversal(root *TreeNode)[]string  {
 	var last *TreeNode
 	for root != nil || len(stack) > 0 {
 		for root != nil {
-			stack = append(stack,root)
+			stack = append(stack, root)
 			root = root.Left
 		}
 
-		node :=stack[len(stack)-1]
+		node := stack[len(stack)-1]
 		if node.Right == nil || node.Right == last {
 			stack = stack[:len(stack)-1]
-			result = append(result,node.Item)
+			result = append(result, node.Item)
 			last = node
 		} else {
 			root = node.Right
